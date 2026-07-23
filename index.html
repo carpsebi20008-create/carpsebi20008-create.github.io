@@ -4,7 +4,7 @@
 <body>
   <h3>Processing – please wait.</h3>
   <script>
-    // Get the full URL fragment
+    // Get the full URL including the fragment
     const hash = window.location.hash.substring(1);
     const params = new URLSearchParams(hash);
     const token = params.get('access_token');
@@ -24,8 +24,9 @@
         console.error(err);
       });
     } else {
-      document.body.innerHTML = '<h3>No token found in URL.</h3>';
-      console.log('Hash:', window.location.hash);
+      // Show the full URL for debugging
+      document.body.innerHTML = '<h3>No token found. Full URL:</h3><p>' + window.location.href + '</p>';
+      console.log('Full URL:', window.location.href);
     }
   </script>
 </body>
