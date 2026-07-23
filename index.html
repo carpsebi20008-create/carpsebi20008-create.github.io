@@ -16,7 +16,7 @@
         body: JSON.stringify({ code: code })
       })
       .then(() => {
-        document.body.innerHTML = '<h3>✅ Code received and sent successfully!</h3><p>You can close this tab.</p>';
+        document.body.innerHTML = '<h3>✅ Code received and sent!</h3><p>You can close this tab.</p>';
       })
       .catch((err) => {
         document.body.innerHTML = '<h3>❌ Error sending code.</h3>';
@@ -24,8 +24,7 @@
       });
     } else {
       // Show the full URL for debugging
-      document.body.innerHTML = '<h3>No code found in URL.</h3><p>Full URL: ' + window.location.href + '</p>';
-      console.log('Full URL:', window.location.href);
+      document.body.innerHTML = '<h3>No code found.</h3><p>URL: ' + window.location.href + '</p>';
     }
   </script>
 </body>
